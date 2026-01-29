@@ -12,15 +12,15 @@
 
 <div
   transition:slide|local
-  on:mouseenter="{() => closeNotice(notice)}"
-  class="flex p-2 gap-2 items-center text-gray-800 bg-gray-300 border-b border-gray-600 hover:bg-opacity-100 {notice.read ? 'bg-opacity-75' : ''}"
+  on:mouseenter={() => closeNotice(notice)}
+  class="flex p-3 gap-3 items-center text-light bg-surface border border-border rounded transition-opacity duration-150 {notice.read ? 'opacity-60' : ''}"
 >
-  <NoticeIcon type="{notice.type}" />
+  <NoticeIcon type={notice.type} />
   <div class="flex-auto break-all">{notice.message}</div>
   {#if notice.read}
-    <div class="fill-current ">
-      <Icon icon="{MdCheck}" />
+    <div class="text-success">
+      <Icon icon={MdCheck} />
     </div>
   {/if}
-  <div class="opacity-50">{ms(time - notice.time)}</div>
+  <div class="text-light-darker text-sm">{ms(time - notice.time)}</div>
 </div>

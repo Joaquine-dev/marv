@@ -20,17 +20,32 @@
 </script>
 
 <style>
+  /* Grid shadow - Modern Glass Design System */
   :global(.svlt-grid-shadow) {
-    background: black;
-    opacity: 0.2;
+    background: linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.15),
+      rgba(99, 102, 241, 0.1)
+    );
+    border: 2px dashed rgba(139, 92, 246, 0.3);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+  }
+
+  :global(.svlt-grid-container) {
+    background: transparent;
+  }
+
+  :global(.svlt-grid-item) {
+    transition: transform 150ms ease;
   }
 </style>
 
 <Grid
   let:item
   {...$gridOptions}
-  on:adjust="{onChange}"
-  bind:items="{panel.grid}"
+  on:adjust={onChange}
+  bind:items={panel.grid}
 >
-  <Widget panel="{panel}" item="{item}" />
+  <Widget panel={panel} item={item} />
 </Grid>

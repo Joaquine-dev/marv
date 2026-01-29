@@ -41,29 +41,29 @@
 </script>
 
 {#if $notices.length}
-  <Button on:click="{open}" class="bg-black bg-opacity-25">
-    <Badge notices="{notReadNotices}" />
+  <Button on:click={open}>
+    <Badge notices={notReadNotices} />
     Messages
   </Button>
 {/if}
 
 {#if opened}
-  <Overlay colors="bg-gray-800">
+  <Overlay colors="bg-background">
     <div class="flex-auto">
       <div class="p-2">
-        <Button icon="{MdArrowBack}" on:click="{close}">back</Button>
+        <Button icon={MdArrowBack} on:click={close}>back</Button>
       </div>
       <div class="container m-auto">
-        <div class="py-2 text-4xl center">
+        <div class="py-2 text-4xl text-light text-center">
           Messages
-          <Badge type="info" notices="{infoNotices}" />
-          <Badge type="warning" notices="{warningNotices}" />
-          <Badge type="error" notices="{errorNotices}" />
-          <Badge type="success" notices="{successNotices}" />
+          <Badge type="info" notices={infoNotices} />
+          <Badge type="warning" notices={warningNotices} />
+          <Badge type="error" notices={errorNotices} />
+          <Badge type="success" notices={successNotices} />
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col gap-2">
           {#each $notices as notice (notice.id)}
-            <Notice time="{time}" notice="{notice}" />
+            <Notice time={time} notice={notice} />
           {/each}
         </div>
       </div>

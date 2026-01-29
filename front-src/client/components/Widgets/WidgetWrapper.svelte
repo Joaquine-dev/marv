@@ -1,4 +1,8 @@
 <script>
+  /**
+   * WidgetWrapper - Modern Glass Design System
+   * Main widget container with action queue visualization
+   */
   import ms from "ms";
   import api from "@/api/actions";
   import { store } from "@/stores/actions";
@@ -85,40 +89,134 @@
   });
 </script>
 
-<div
-  on:click
-  class="relative h-full {widget.borders} flex flex-col overflow-hidden {cls}"
->
-  <Label widget="{widget}" />
-  <div class="relative flex-auto overflow-hidden">
+<div on:click class="widget-wrapper {cls}">
+  <Label widget={widget} />
+  <div class="widget-body">
     <slot />
   </div>
   <slot name="overlay" />
 </div>
 
 {#if action && action.inQueue}
-  <div
-    class="absolute inset-0 pointer-events-none {widget.borders} overflow-hidden"
-  >
+  <div class="action-overlay" class:running={action.running}>
     {#if action.running}
-      <div class="flex w-full h-full opacity-50 animate-spin">
+      <div class="spinner">
         <MdAutorenew />
       </div>
       {#if elapsedTime > -1}
-        <div class="absolute bottom-0 p-1 text-xs opacity-50">
+        <div class="elapsed-time">
           {ms(elapsedTime)}
         </div>
       {/if}
     {/if}
-    <div class="absolute inset-0 flex items-center h-full opacity-50 text-4xl">
-      <div class="flex-auto text-center">
-        <span
-          class="{action.running ? '' : 'px-4 text-dark bg-gray-500 rounded-full'}"
-        >{action.inQueue}</span>
-      </div>
+    <div class="queue-count">
+      <span class="count-badge" class:active={action.running}>
+        {action.inQueue}
+      </span>
     </div>
-    <div class="absolute left-0 right-0 bottom-0">
-      <Progressbar percent="{100 - elapsedPercent}" />
+    <div class="progress-bar">
+      <Progressbar percent={100 - elapsedPercent} />
     </div>
   </div>
 {/if}
+
+<style>
+  .widget-wrapper {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--color-surface, #141416);
+    border: 1px solid var(--color-border, #2a2a2d);
+    border-radius: 8px;
+    transition: all 150ms ease;
+  }
+
+  .widget-wrapper:hover {
+    border-color: var(--color-border-hover, #3f3f46);
+  }
+
+  .widget-body {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* Action overlay */
+  .action-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border: 2px solid var(--color-accent, #8b5cf6);
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(139, 92, 246, 0.05);
+  }
+
+  .action-overlay.running {
+    box-shadow:
+      inset 0 0 20px rgba(139, 92, 246, 0.1),
+      0 0 20px rgba(139, 92, 246, 0.2);
+  }
+
+  .spinner {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: var(--color-accent, #8b5cf6);
+    opacity: 0.4;
+    animation: spin 1s linear infinite;
+  }
+
+  .elapsed-time {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0.375rem 0.5rem;
+    font-size: 11px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-muted, #71717a);
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 0 4px 0 0;
+  }
+
+  .queue-count {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .count-badge {
+    padding: 0.25rem 1rem;
+    color: var(--color-text-primary, #fafafa);
+    background: var(--color-surface, #141416);
+    border: 1px solid var(--color-border, #2a2a2d);
+    border-radius: 9999px;
+    transition: all 150ms ease;
+  }
+
+  .count-badge.active {
+    color: var(--color-accent, #8b5cf6);
+    background: transparent;
+    border-color: transparent;
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  }
+
+  .progress-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>

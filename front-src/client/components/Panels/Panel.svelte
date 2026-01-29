@@ -12,13 +12,13 @@
   }
 </script>
 
-<div class="relative flex flex-auto" on:dblclick="{onDoubleClick}">
+<div class="relative flex flex-auto bg-background" on:dblclick={onDoubleClick}>
   <EditMessage />
   {#each $panels as panel}
     <div class="absolute inset-0 p-1 {invisible($currentPanel, panel)}">
       {#if panel.grid.length}
         <div class="h-full overflow-x-hidden">
-          <Grid panel="{panel}" />
+          <Grid panel={panel} />
         </div>
       {/if}
     </div>

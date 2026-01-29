@@ -1,4 +1,8 @@
 <script>
+  /**
+   * Timeline Ruler - Modern Glass Design System
+   * Time ruler with seconds markers
+   */
   import { getContext } from "svelte";
   import pannable from "@/libs/svelte/pannable.js";
 
@@ -29,28 +33,91 @@
 
 <div
   use:pannable
-  class="h-full"
-  on:panmove="{onPanMove}"
-  style="padding-left:10px"
-  bind:this="{wrapperElement}"
-  on:wheel|preventDefault="{onWheel}"
+  class="ruler-container"
+  on:panmove={onPanMove}
+  bind:this={wrapperElement}
+  on:wheel|preventDefault={onWheel}
 >
-  <div class="relative flex h-full overflow-hidden">
-    <div class="absolute flex h-full" style="left:{$left}px;">
+  <div class="ruler-viewport">
+    <div class="ruler-track" style="left:{$left}px;">
       {#each units as _, i}
         <div
-          class="relative flex border-right border-blue-500 h-full"
-          style="width:{unit * $scale}px; border-right:1px solid rgba(0,0,0,0.3);"
+          class="ruler-segment"
+          style="width:{unit * $scale}px;"
         >
           {#each Array(10) as _, y}
             <div
-              class="flex-auto border-right border-blue-500"
-              style="height:10px;border-right:{y < 9 ? 1 : 0}px solid rgba(0,0,0,0.1);"
+              class="ruler-tick"
+              class:major={y === 0}
+              class:half={y === 5}
             ></div>
           {/each}
-          <span class="absolute bottom-0 right-0 px-2 opacity-50">{i + 1}</span>
+          <span class="ruler-label">{i + 1}s</span>
         </div>
       {/each}
     </div>
   </div>
 </div>
+
+<style>
+  .ruler-container {
+    height: 100%;
+    padding-left: 10px;
+    background: var(--color-elevated, #1c1c1f);
+    cursor: grab;
+  }
+
+  .ruler-container:active {
+    cursor: grabbing;
+  }
+
+  .ruler-viewport {
+    position: relative;
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .ruler-track {
+    position: absolute;
+    display: flex;
+    height: 100%;
+  }
+
+  .ruler-segment {
+    position: relative;
+    display: flex;
+    height: 100%;
+    border-right: 1px solid rgba(139, 92, 246, 0.3);
+  }
+
+  .ruler-tick {
+    flex: 1;
+    height: 6px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .ruler-tick.major {
+    height: 12px;
+    border-right-color: rgba(139, 92, 246, 0.5);
+  }
+
+  .ruler-tick.half {
+    height: 9px;
+    border-right-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .ruler-tick:last-child {
+    border-right: none;
+  }
+
+  .ruler-label {
+    position: absolute;
+    bottom: 2px;
+    right: 6px;
+    font-size: 10px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-muted, #71717a);
+  }
+</style>

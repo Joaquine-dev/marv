@@ -81,12 +81,14 @@
 </script>
 
 <SortableItem
-  index="{index}"
-  on:click="{onSelect}"
-  class="relative flex pl-2 items-center space-x-2 {selected}"
+  index={index}
+  on:click={onSelect}
+  class="track-item {isSelected ? 'selected' : ''}"
 >
-  <AnimeIcon type="{item.target.type}" />
-  <div class="p-2 pl-0 truncate flex-1">{item.target.filename}</div>
+  <div class="track-icon">
+    <AnimeIcon type={item.target.type} />
+  </div>
+  <div class="track-name">{item.target.filename}</div>
 
   <ItemMenu>
     <ItemButtons
@@ -94,15 +96,14 @@
       on:duplicate
       on:fileUpdate
       on:textFileChange
-      widget="{widget}"
-      item="{item}"
+      widget={widget}
+      item={item}
     />
   </ItemMenu>
 
   <div
     slot="dragOver"
-    class="absolute bg-red-600 inset-0"
-    style="height:2px;top:auto;"
+    class="drop-indicator"
   ></div>
 </SortableItem>
 
@@ -117,3 +118,66 @@
     />
   {/each}
 </Keyframes>
+
+<style>
+  :global(.track-item) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--color-surface, #141416);
+    transition: all 150ms ease;
+  }
+
+  :global(.track-item:hover) {
+    background: var(--color-elevated, #1c1c1f);
+  }
+
+  :global(.track-item.selected) {
+    background: rgba(139, 92, 246, 0.15);
+    border-left: 3px solid var(--color-accent, #8b5cf6);
+    padding-left: calc(0.75rem - 3px);
+  }
+
+  :global(.track-icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--color-background, #0a0a0b);
+    border-radius: 6px;
+    color: var(--color-text-muted, #71717a);
+    flex-shrink: 0;
+  }
+
+  :global(.track-item.selected .track-icon) {
+    background: rgba(139, 92, 246, 0.2);
+    color: var(--color-accent, #8b5cf6);
+  }
+
+  :global(.track-name) {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-secondary, #a1a1aa);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  :global(.track-item.selected .track-name) {
+    color: var(--color-text-primary, #fafafa);
+  }
+
+  :global(.drop-indicator) {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--color-accent, #8b5cf6);
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+  }
+</style>

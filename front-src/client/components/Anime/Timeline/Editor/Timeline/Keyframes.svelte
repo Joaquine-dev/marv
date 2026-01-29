@@ -1,4 +1,8 @@
 <script>
+  /**
+   * Keyframes Container - Modern Glass Design System
+   * Container for keyframe track with zoom/pan support
+   */
   import pannable from "@/libs/svelte/pannable.js";
   import { createEventDispatcher, getContext } from "svelte";
 
@@ -33,28 +37,60 @@
     event.preventDefault();
     event.stopPropagation();
   }
-
-  $: selectedCLass = selected ? "bg-primary" : "bg-primary-darker";
 </script>
 
 <div
-  style="padding-left:10px"
-  class="w-full h-full {selectedCLass}"
-  on:contextmenu="{onContextmenu}"
+  class="keyframes-track"
+  class:selected
+  on:contextmenu={onContextmenu}
 >
   <div
-    bind:this="{wrapperElement}"
+    bind:this={wrapperElement}
     use:pannable
-    on:panmove="{onPanMove}"
-    on:dblclick="{onDoubleClick}"
-    on:wheel|preventDefault="{onWheel}"
-    class="relative w-full h-full overflow-hidden"
+    on:panmove={onPanMove}
+    on:dblclick={onDoubleClick}
+    on:wheel|preventDefault={onWheel}
+    class="keyframes-viewport"
   >
     <div
-      class="absolute top-0 bottom-0 flex items-center"
+      class="keyframes-content"
       style="left:{$left}px"
     >
       <slot />
     </div>
   </div>
 </div>
+
+<style>
+  .keyframes-track {
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    background: var(--color-background, #0a0a0b);
+    transition: background 150ms ease;
+  }
+
+  .keyframes-track.selected {
+    background: rgba(139, 92, 246, 0.05);
+  }
+
+  .keyframes-viewport {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    cursor: grab;
+  }
+
+  .keyframes-viewport:active {
+    cursor: grabbing;
+  }
+
+  .keyframes-content {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+  }
+</style>

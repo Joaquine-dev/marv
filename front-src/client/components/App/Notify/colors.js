@@ -1,15 +1,15 @@
 const colors = {
-  info: "bg-gray-300 text-gray-800",
-  success: "bg-green-700 text-gray-300",
-  warning: "bg-orange-600 text-gray-300",
-  error: "bg-red-700 text-gray-300",
+  info: "bg-info-muted text-info border border-info",
+  success: "bg-success-muted text-success border border-success",
+  warning: "bg-warning-muted text-warning border border-warning",
+  error: "bg-error-muted text-error border border-error",
 };
 
 const iconColors = {
-  info: "text-gray-800",
-  success: "text-green-700",
-  warning: "text-orange-600",
-  error: "text-red-700",
+  info: "text-info",
+  success: "text-success",
+  warning: "text-warning",
+  error: "text-error",
 };
 
 export function color(type) {
@@ -17,5 +17,5 @@ export function color(type) {
 }
 
 export function iconColor(type) {
-  return iconColors[type] || colors.info;
+  return iconColors[type] || iconColors.info;
 }

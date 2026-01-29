@@ -15,20 +15,21 @@
   }
 </script>
 
-<Modal on:mousedown bind:opened title="{capitalize(_('words.confirm'))}">
+<Modal on:mousedown bind:opened title={capitalize(_('words.confirm'))}>
   <div class="flex flex-col p-5 gap-5">
-    <div class="font-bold">{question}</div>
+    <div class="font-medium text-light">{question}</div>
     <slot />
-    <div class="flex gap-5">
+    <div class="flex gap-3">
       <Button
-        class="flex-auto bg-primary"
-        on:click="{confirm.bind(null, true)}"
+        class="flex-auto"
+        variant="accent"
+        on:click={confirm.bind(null, true)}
       >
         {_('words.yes')}
       </Button>
       <Button
-        class="flex-auto bg-dark-darker"
-        on:click="{confirm.bind(null, false)}"
+        class="flex-auto"
+        on:click={confirm.bind(null, false)}
       >
         {_('words.no')}
       </Button>

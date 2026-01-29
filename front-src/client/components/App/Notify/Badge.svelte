@@ -6,7 +6,7 @@
 </script>
 
 {#if notices.length}
-  <div class="text-sm px-2 inline rounded-full {color(type)}">
+  <div class="text-xs px-2 inline rounded {color(type)}">
     {notices.length}
   </div>
 {/if}

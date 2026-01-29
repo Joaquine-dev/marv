@@ -16,9 +16,9 @@
   }
 </script>
 
-<Button class="bg-red-600" on:click="{quit}">{_('words.quit')}</Button>
+<Button class="m-2" variant="error" on:click={quit}>{_('words.quit')}</Button>
 <ConfirmModal
-  opened="{confirmModal}"
-  on:confirm="{onConfirm}"
-  question="{_('sentences.confirm-quit')}"
+  opened={confirmModal}
+  on:confirm={onConfirm}
+  question={_('sentences.confirm-quit')}
 />
