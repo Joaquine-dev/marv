@@ -1,0 +1,8 @@
+packages:
+  - app
+
+onlyBuiltDependencies:
+  - electron
+  - esbuild
+  - lzma-native
+  - sqlite3

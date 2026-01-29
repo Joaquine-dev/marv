@@ -1,0 +1,71 @@
+{
+  "name": "marv",
+  "version": "1.9.0",
+  "description": "Marv - Twitch Bot",
+  "repository": "github:skarab42/marv",
+  "author": "skarab42 <skarab42@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "electron-rebuild",
+    "app:watch": "electron app/main/index.js -w",
+    "app:build": "electron-builder build",
+    "client:watch": "vite build --watch",
+    "client:build": "vite build",
+    "tailwind:build": "node tailwind/build.js",
+    "start": "electron app/main/index.js",
+    "watch": "concurrently -k -n tailwind,client,app -c red,magenta,yellow \"pnpm tailwind:build\" \"pnpm client:watch\" \"pnpm app:watch\"",
+    "build": "pnpm client:build && pnpm tailwind:build --prod",
+    "prettify": "prettier --write ./app ./front-src",
+    "lint": "eslint ./app ./front-src --fix && pnpm prettify",
+    "change": "git sv cgl > CHANGELOG.md",
+    "commit": "cz"
+  },
+  "build": {
+    "productName": "Marv",
+    "icon": "app/static/icon.png",
+    "linux": {
+      "category": "Streaming"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^3.1.0",
+    "animejs": "^3.2.1",
+    "axios": "^1.7.0",
+    "capitalize": "^2.0.3",
+    "chalk": "^4.1.0",
+    "chokidar": "^3.5.1",
+    "clone-deep": "^4.0.1",
+    "codemirror": "^5.59.2",
+    "compare-versions": "^3.6.0",
+    "concurrently": "^8.2.0",
+    "cz-conventional-changelog": "3.3.0",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8",
+    "@electron/rebuild": "^3.7.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-svelte": "^2.43.0",
+    "file-saver": "^2.0.5",
+    "i18next": "^19.8.3",
+    "i18next-http-backend": "^1.0.21",
+    "jszip": "^3.6.0",
+    "prettier": "^3.3.0",
+    "prettier-plugin-svelte": "^3.2.0",
+    "sequelize-cli": "^6.2.0",
+    "socket.io-client": "^4.7.5",
+    "svelte": "^4.2.18",
+    "svelte-grid": "1.11.0",
+    "svelte-icons": "^2.1.0",
+    "svelte-portal": "^2.1.1",
+    "sveltejs-tippy": "^3.0.0",
+    "tailwindcss": "^3.4.0",
+    "throttle-debounce": "^3.0.1",
+    "uuid": "^8.3.1",
+    "vite": "^5.4.0",
+    "vite-plugin-svelte-svg": "^2.3.0"
+  }
+}

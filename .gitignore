@@ -1,0 +1,30 @@
+app/static/css/tailwind.css
+app/client/css/
+app/client/js/
+node_modules/
+dist/
+*_.*
+*_
+
+yarn-error.log
+pnpm-lock.yaml
+package-lock.json
+
+.idea/
+.vscode/
+
+.DS_Store
+
+# Database
+*.db
+*.sqlite
+
+# Logs
+logs/
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+.claude/

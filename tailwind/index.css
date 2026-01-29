@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+
+/* File inputs */
+input[type=file],
+input[type=file]::-webkit-file-upload-button {
+  cursor: pointer;
+}
+
+/* Focus states - flat style with accent border */
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+.focus-accent:focus {
+  border-color: #6366f1;
+}
+
+/* Tippy tooltips */
+[data-tippy-root] {
+  z-index: 49 !important;
+}
+
+.tippy-box[data-theme~="marv"] {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+}
+
+.tippy-box[data-theme~="marv"][data-placement^="top"] > .tippy-arrow::before {
+  border-top-color: #1a1a1a;
+}
+
+.tippy-box[data-theme~="marv"][data-placement^="bottom"] > .tippy-arrow::before {
+  border-bottom-color: #1a1a1a;
+}
+
+/* Minimal scrollbar - 2px with accent color */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #6366f1 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #6366f1;
+  border-radius: 4px;
+}
+
+/* Smooth transitions */
+.transition-flat {
+  transition: all 150ms ease;
+}
+
+/* Flat button base */
+.btn-flat {
+  border: 1px solid #2a2a2a;
+  background-color: transparent;
+  transition: all 150ms ease;
+}
+
+.btn-flat:hover {
+  border-color: #6366f1;
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.btn-flat:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Flat input base */
+.input-flat {
+  background-color: transparent;
+  border: 1px solid #2a2a2a;
+  color: #ffffff;
+  transition: border-color 150ms ease;
+}
+
+.input-flat:focus {
+  border-color: #6366f1;
+}
+
+.input-flat::placeholder {
+  color: #888888;
+}
+
+/* Card/Surface styles */
+.surface {
+  background-color: #1a1a1a;
+  border: 1px solid #2a2a2a;
+}
+
+.surface:hover {
+  border-color: #6366f1;
+}
+
+@tailwind utilities;
